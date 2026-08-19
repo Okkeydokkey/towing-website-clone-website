@@ -1,6 +1,7 @@
 // Base URL of your backend. Set VITE_API_URL in frontend/.env to override
 // (e.g. VITE_API_URL=https://your-deployed-api.com/api for production).
-export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
+export const API_URL = "https://towingbackend.vercel.app/api";
 
 export function getToken() {
   return localStorage.getItem("rt_admin_token");
