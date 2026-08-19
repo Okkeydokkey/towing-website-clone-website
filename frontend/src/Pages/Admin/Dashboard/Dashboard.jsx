@@ -28,8 +28,8 @@ const referenceImage = towingReference;
 const NAV_ITEMS = [
   { key: "add-service", label: "Add Service", icon: PlusCircle },
   { key: "manage-service", label: "Manage Service", icon: ListChecks },
-  { key: "add-blog", label: "Add Blog", icon: FileEdit },
-  { key: "manage-blog", label: "Manage Blog", icon: Newspaper },
+  // { key: "add-blog", label: "Add Blog", icon: FileEdit },
+  // { key: "manage-blog", label: "Manage Blog", icon: Newspaper },
   { key: "contact-requests", label: "Contact Requests", icon: MessageSquare },
 ];
 
@@ -168,8 +168,8 @@ export function Dashboard() {
         <div className="admin-panel">
           {activeTab === "add-service" && <AddService />}
           {activeTab === "manage-service" && <ManageService />}
-          {activeTab === "add-blog" && <AddBlog />}
-          {activeTab === "manage-blog" && <ManageBlog />}
+           {activeTab === "add-blog" && <AddBlog />} 
+           {activeTab === "manage-blog" && <ManageBlog />} 
           {activeTab === "profile" && (
             <ProfileSettings adminEmail={adminEmail} onEmailUpdated={setAdminEmail} />
           )}

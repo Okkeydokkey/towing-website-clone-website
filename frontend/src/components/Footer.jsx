@@ -122,9 +122,14 @@ export function Footer() {
     </button>
     {adminMenuOpen && (
       <div className="towing-admin-dropdown">
-        <Link to="/admin/login" onClick={() => setAdminMenuOpen(false)}>
-          Admin
-        </Link>
+       // Correct state for closing hamburger menu
+<Link 
+  to="/admin/login" 
+  className="mobile-nav-item"
+  onClick={() => setMenuOpen(false)} // Hamburger menu close state
+>
+  Admin
+</Link>
       </div>
     )}
      </div>
