@@ -133,7 +133,7 @@ const allBlogs = [...blogsData, ...dbBlogs];
    
 const [selectedCity, setSelectedCity] = useState(cities[0]);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
-  const [openFaqIndex, setOpenFaqIndex] = useState(0);
+const [openFaqIndex, setOpenFaqIndex] = useState(null);
   const [services, setServices] = useState([]);
   const toggleFaq = (index) => {
     setOpenFaqIndex((prev) => (prev === index ? -1 : index));
@@ -428,9 +428,9 @@ useEffect(() => {
       <p className="compare-eyebrow">
         <span className="eyebrow-dot"></span>EMERGENCY VS. SCHEDULED
       </p>
-      <h2 className="compare-heading">
-        EMERGENCY TOWING VS. SCHEDULED <br></br>   <h2 className="compare-heading">TRANSPORT WHAT'S THE DIFFERENCE?</h2>
-      </h2>
+     <h2 className="compare-heading">
+  EMERGENCY TOWING VS. SCHEDULED TRANSPORT WHAT'S THE DIFFERENCE?
+</h2>
     </div>
 
     {/* CONTENT */}
@@ -868,7 +868,7 @@ useEffect(() => {
         <p className="faq-eyebrow">
           <span className="eyebrow-dot"></span>FREQUENTLY ASKED QUESTIONS
         </p>
-        <h2 className="faq-heading">YOUR TOWING QUESTIONS ANSWERED HONESTLY</h2>
+       <h2 className="faq-heading">YOUR TOWING QUESTIONS ANSWERED HONESTLY</h2>
         <p className="faq-subtitle">
           Have more questions or need a custom Towing &amp; Roadside
           Assistance? Get in touch with us &amp; we'll help you get started.
