@@ -23,4 +23,11 @@ async function markAllAsRead(req, res) {
   res.json({ message: "All notifications marked as read." });
 }
 
-module.exports = { getNotifications, markAsRead, markAllAsRead };
+// DELETE /api/notifications/:id  (admin only — delete one notification)
+async function deleteNotification(req, res) {
+  const notification = await Notification.findByIdAndDelete(req.params.id);
+  if (!notification) return res.status(404).json({ message: "Notification not found." });
+  res.json({ message: "Notification deleted." });
+}
+
+module.exports = { getNotifications, markAsRead, markAllAsRead, deleteNotification };
