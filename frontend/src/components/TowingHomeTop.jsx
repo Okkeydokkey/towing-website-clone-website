@@ -189,19 +189,25 @@ export function TowingHomeTop() {
         ===================================================== */
 
         .towing-topbar {
-          height: 25px;
+          
 
           background: var(--orange);
           color: #fff;
 
           font-size: 11px;
           font-weight: 500;
+            height: auto;
+  min-height: 25px;
+  padding: 4px 12px;
         }
 
 
-        .towing-topbar-inner {
-          height: 100%;
 
+        .towing-topbar-inner {
+        
+ height: auto;
+  flex-wrap: wrap;
+  gap: 4px;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -693,13 +699,15 @@ export function TowingHomeTop() {
           }
 
 
-          .towing-cta {
-            min-height: 33px;
-
-            padding: 0 14px;
-
-            font-size: 9px;
-          }
+            .towing-cta {
+    width: auto;
+    min-width: 0;
+    max-width: 90%;   
+    min-height: 33px;
+    padding: 0 14px;
+    font-size: 9px;
+    white-space: normal;   
+  }
         }
 
 
@@ -708,12 +716,14 @@ export function TowingHomeTop() {
         ===================================================== */
 
         @media (max-width: 620px) {
-
-          .towing-topbar-inner {
-            justify-content: center;
-
-            font-size: 9px;
-          }
+  .towing-topbar-inner {
+    justify-content: center;
+    font-size: 9px;
+    text-align: center;
+    white-space: normal;   /* text ko wrap hone dein */
+    padding: 0 8px;
+    line-height: 1.4;
+  }
 
 
           .towing-location {
@@ -729,9 +739,9 @@ export function TowingHomeTop() {
           .towing-nav-inner {
             min-height: 67px;
 
-            flex-wrap: wrap;
-
-            justify-content: center;
+    justify-content: center;
+  
+       flex-wrap: wrap;
 
             padding: 4px 0 8px;
           }
@@ -747,11 +757,14 @@ export function TowingHomeTop() {
           }
 
 
-          .towing-phone {
-            margin-left: 0;
+        .towing-phone {
+  margin-left: 0;
+  font-size: 18px;  
+   
+    order: 2;
+    margin: 4px auto 0;
 
-            font-size: 22px;
-          }
+}
 .phone-icon {
   width: 24px;
   height: 24px;
@@ -799,9 +812,14 @@ export function TowingHomeTop() {
   }
 
   .towing-cta {
+    width: auto;
+    min-width: 0;
+    max-width: 88%;
     min-height: 38px;
     padding: 0 15px;
     font-size: 11px;
+    white-space: normal;
+    line-height: 1.2;
   }
 }
 
@@ -811,10 +829,9 @@ export function TowingHomeTop() {
 
         @media (max-width: 400px) {
 
-          .towing-phone {
-            font-size: 19px;
-          }
-
+        .towing-phone {
+  font-size: 15px;   /* pehle 19px tha */
+}
 
           .towing-logo {
             width: 112px;
@@ -837,13 +854,16 @@ export function TowingHomeTop() {
           }
 
 
-          .towing-cta {
-            min-height: 28px;
-
-            padding: 0 9px;
-
-            font-size: 7.5px;
-          }
+         .towing-cta {
+    width: auto;
+    min-width: 0;
+    max-width: 85%;
+    min-height: 28px;
+    padding: 0 9px;
+    font-size: 7.5px;
+    white-space: normal;
+    line-height: 1.2;
+  }
         }
 
       `}</style>

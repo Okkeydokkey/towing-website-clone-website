@@ -22,6 +22,8 @@ import { ProfileSettings } from "./ProfileSettings";
 import { getMe, logout as logoutRequest } from "../../../services/authApi";
 import { getToken } from "../../../services/apiClient";
 import { getDashboardStats } from "../../../services/dashboardApi";
+import NotificationBell from "../../../components/NotificationBell";
+import "../../../components/NotificationBell.css";
 
 const referenceImage = towingReference;
 
@@ -79,104 +81,106 @@ export function Dashboard() {
 
   if (!authChecked) return null;
 
-  return (
-    <div className="admin-shell">
-      <button
-        type="button"
-        className="admin-mobile-toggle"
-        onClick={() => setSidebarOpen((s) => !s)}
-        aria-label="Toggle menu"
-      >
-        <Menu size={20} />
-      </button>
+   return (
+    <div className="dashboard-header">
+      <div className="admin-shell">
+        <button
+          type="button"
+          className="admin-mobile-toggle"
+          onClick={() => setSidebarOpen((s) => !s)}
+          aria-label="Toggle menu"
+        >
+          <Menu size={20} />
+        </button>
 
-      <aside className={`admin-sidebar ${sidebarOpen ? "is-open" : ""}`}>
-        <a href="/" className="admin-sidebar-logo">
-          <img src={referenceImage} alt="Reliable Towing & Recovery" />
-        </a>
+        <aside className={`admin-sidebar ${sidebarOpen ? "is-open" : ""}`}>
+          <a href="/" className="admin-sidebar-logo">
+            <img src={referenceImage} alt="Reliable Towing & Recovery" />
+          </a>
 
-        <nav className="admin-nav">
-          <span className="admin-nav-heading">
-            <LayoutGrid size={12} strokeWidth={2.4} /> DASHBOARD
-          </span>
+          <nav className="admin-nav">
+            <span className="admin-nav-heading">
+              <LayoutGrid size={12} strokeWidth={2.4} /> DASHBOARD
+            </span>
 
-          {NAV_ITEMS.map(({ key, label, icon: Icon }) => (
+            {NAV_ITEMS.map(({ key, label, icon: Icon }) => (
+              <button
+                key={key}
+                type="button"
+                className={`admin-nav-item ${activeTab === key ? "is-active" : ""}`}
+                onClick={() => {
+                  setActiveTab(key);
+                  setSidebarOpen(false);
+                }}
+              >
+                <Icon size={16} strokeWidth={2.1} />
+                {label}
+              </button>
+            ))}
+
+            <span className="admin-nav-heading admin-nav-heading-spaced">
+              <UserCog size={12} strokeWidth={2.4} /> ACCOUNT
+            </span>
+
             <button
-              key={key}
               type="button"
-              className={`admin-nav-item ${activeTab === key ? "is-active" : ""}`}
+              className={`admin-nav-item admin-nav-sub ${
+                activeTab === "profile" ? "is-active" : ""
+              }`}
               onClick={() => {
-                setActiveTab(key);
+                setActiveTab("profile");
                 setSidebarOpen(false);
               }}
             >
-              <Icon size={16} strokeWidth={2.1} />
-              {label}
+              <UserCog size={16} strokeWidth={2.1} />
+              Profile Settings
             </button>
-          ))}
+          </nav>
 
-          <span className="admin-nav-heading admin-nav-heading-spaced">
-            <UserCog size={12} strokeWidth={2.4} /> ACCOUNT
-          </span>
-
-          <button
-            type="button"
-            className={`admin-nav-item admin-nav-sub ${
-              activeTab === "profile" ? "is-active" : ""
-            }`}
-            onClick={() => {
-              setActiveTab("profile");
-              setSidebarOpen(false);
-            }}
-          >
-            <UserCog size={16} strokeWidth={2.1} />
-            Profile Settings
-          </button>
-        </nav>
-
-        <div className="admin-sidebar-footer">
-          <a href="/" className="admin-back-btn">
-            <ArrowLeft size={15} strokeWidth={2.2} />
-            Back to Site
-          </a>
-          <button type="button" className="admin-logout-btn" onClick={handleLogout}>
-            <LogOut size={15} strokeWidth={2.2} />
-            Log Out
-          </button>
-        </div>
-      </aside>
-
-      <main className="admin-content">
-        <header className="admin-topbar">
-          <h1>{NAV_ITEMS.find((i) => i.key === activeTab)?.label || "Profile Settings"}</h1>
-          <div className="admin-topbar-stats">
-            <span className="admin-stat-pill">
-              <strong>{stats.totalServices}</strong> Services
-            </span>
-            <span className="admin-stat-pill">
-              <strong>{stats.totalBlogs}</strong> Blog Posts
-            </span>
+          <div className="admin-sidebar-footer">
+            <a href="/" className="admin-back-btn">
+              <ArrowLeft size={15} strokeWidth={2.2} />
+              Back to Site
+            </a>
+            <button type="button" className="admin-logout-btn" onClick={handleLogout}>
+              <LogOut size={15} strokeWidth={2.2} />
+              Log Out
+            </button>
           </div>
-          <div className="admin-topbar-user">
-            <span className="admin-topbar-avatar">
-              {adminEmail ? adminEmail.charAt(0).toUpperCase() : "A"}
-            </span>
-            <span className="admin-topbar-email">{adminEmail}</span>
+        </aside>
+
+        <main className="admin-content">
+          <header className="admin-topbar">
+            <h1>{NAV_ITEMS.find((i) => i.key === activeTab)?.label || "Profile Settings"}</h1>
+            <div className="admin-topbar-stats">
+              <span className="admin-stat-pill">
+                <strong>{stats.totalServices}</strong> Services
+              </span>
+              <span className="admin-stat-pill">
+                <strong>{stats.totalBlogs}</strong> Blog Posts
+              </span>
+            </div>
+            <div className="admin-topbar-user">
+              <NotificationBell />
+              <span className="admin-topbar-avatar">
+                {adminEmail ? adminEmail.charAt(0).toUpperCase() : "A"}
+              </span>
+              <span className="admin-topbar-email">{adminEmail}</span>
+            </div>
+          </header>
+
+          <div className="admin-panel">
+            {activeTab === "add-service" && <AddService />}
+            {activeTab === "manage-service" && <ManageService />}
+            {activeTab === "add-blog" && <AddBlog />}
+            {activeTab === "manage-blog" && <ManageBlog />}
+            {activeTab === "profile" && (
+              <ProfileSettings adminEmail={adminEmail} onEmailUpdated={setAdminEmail} />
+            )}
+            {activeTab === "contact-requests" && <ContactRequests />}
           </div>
-        </header>
-
-        <div className="admin-panel">
-          {activeTab === "add-service" && <AddService />}
-          {activeTab === "manage-service" && <ManageService />}
-           {activeTab === "add-blog" && <AddBlog />} 
-           {activeTab === "manage-blog" && <ManageBlog />} 
-          {activeTab === "profile" && (
-            <ProfileSettings adminEmail={adminEmail} onEmailUpdated={setAdminEmail} />
-          )}
-          {activeTab === "contact-requests" && <ContactRequests />}
-        </div>
-      </main>
-
+        </main>
+      </div>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Roboto:wght@400;500;700&display=swap');
 
