@@ -1,4 +1,5 @@
 const Contact = require("../models/ContactModel");
+const Notification = require("../models/NotificationModel");
 
 // POST /api/contact  (public — from the site's contact form)
 async function createContact(req, res) {
@@ -10,6 +11,14 @@ async function createContact(req, res) {
 
   const contact = await Contact.create({
     fullName, phone, address, serviceType, vehicleInfo, vehicleCondition, message,
+  });
+
+  // Create a notification for the admin panel
+  await Notification.create({
+    type: "new_contact",
+    message: `New contact request from ${fullName}`,
+    relatedId: contact._id,
+    relatedModel: "Contact",
   });
 
   res.status(201).json(contact);
