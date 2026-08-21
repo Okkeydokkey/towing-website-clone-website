@@ -9,7 +9,11 @@ const contactSchema = new mongoose.Schema(
     vehicleInfo: { type: String, trim: true, default: "" },
     vehicleCondition: { type: String, trim: true, default: "" },
     message: { type: String, trim: true, default: "" },
-    status: { type: String, enum: ["new", "contacted", "closed"], default: "new" },
+    status: {
+      type: String,
+      enum: ["New", "In Progress", "Completed"],
+      default: "New",
+    },
   },
   { timestamps: true }
 );
